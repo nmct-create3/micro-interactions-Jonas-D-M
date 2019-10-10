@@ -100,7 +100,11 @@ html {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-
+@media (prefers-color-scheme: dark) {
+  html {
+    background-color: var(--global-color-neutral-xxxx-dark);
+  }
+}
 *,
 *:before,
 *:after {
@@ -550,15 +554,23 @@ input::placeholder {
 }
 
 .c-logo__path--1 {
-  fill: var(--logo__path--1--Fill);
+  fill: var(--logo__path--1--fill, var(--global-color-neutral-xxxx-dark));
 }
 
 .c-logo__path--2 {
-  fill: var(--logo__path--2--Fill);
+  fill: var(--logo__path--2--fill, var(--global-color-alpha));
 }
 
 .c-logo__path--3 {
-  fill: var(--logo__path--3--Fill);
+  fill: var(--logo__path--3--fill, var(--global-color-alpha-x-dark));
+}
+
+@media (prefers-color-scheme: dark) {
+  .c-logo {
+    --logo__path--1--fill: white;
+    --logo__path--2--fill: var(--logo__path--1--fill);
+    --logo__path--3--fill: var(--logo__path--1--fill);
+  }
 }
 
 /*
@@ -591,10 +603,22 @@ input::placeholder {
 }
 
 .c-card__title {
+  --card__title-color: var(--global-color-neutral-xxxx-dark);
   text-align: center;
   font-size: 18px;
   line-height: var(--global-whitespace);
   font-weight: 600;
+  color: var(--card__title-color);
+}
+
+@media (prefers-color-scheme: dark) {
+  .c-card {
+    --card-backgroundColor: var(--global-color-neutral-xxx-dark);
+    --card__footer-borderColor: var(--global-color-neutral-xxxx-dark);
+  }
+  .c-card__title {
+    --card__title-color: white;
+  }
 }
 
 @media (min-width: 27em) {
@@ -638,8 +662,8 @@ input::placeholder {
   /* border: 1px solid var(--global-input-borderColor); */
   border: var(--global-borderWidth) solid var(--input-borderColor, var(--global-input-borderColor));
   border-radius: var(--global-borderRadius);
-  background-color: var(--global-input-backgroundColor);
-  color: var(--global-input-color);
+  background-color: var(--input-background-color, var(--global-input-backgroundColor));
+  color: var(--input-color, var(--global-input-color));
   font-family: inherit;
   font-size: 16px;
   line-height: calc(var(--global-baseline) * 3);
@@ -656,6 +680,13 @@ input::placeholder {
 .c-input:active {
   border-color: var(--global-input-focus-borderColor);
   box-shadow: var(--global-input-focus-boxShadow);
+}
+
+@media (prefers-color-scheme: dark) {
+  .c-input {
+    border: var(--global-borderWidth) solid var(--input-borderColor, var(--global-color-neutral-xxxx-dark));
+    background-color: var(--input-background-color, var(--global-color-neutral-xxxx-dark));
+  }
 }
 
 /*
@@ -696,6 +727,12 @@ more padding on the right to avoid overlap
   font-weight: 600;
   float: right;
   display: var(--error-message-display, none);
+}
+
+@media (prefers-color-scheme: dark) {
+  .c-label {
+    color: var(--label-color, var(--global-color-neutral-x-light));
+  }
 }
 
 /*
@@ -778,7 +815,7 @@ more padding on the right to avoid overlap
   width: var(--global-whitespace-md);
   height: var(--global-whitespace-md);
   margin-right: var(--global-whitespace-sm);
-  background: var(--global-input-backgroundColor);
+  background: var(--fake-input-backgroundColor, var(--global-input-backgroundColor));
   border: var(--global-borderWidth) solid var(--custom-option-borderColor, var(--global-input-borderColor));
   box-shadow: var(--custom-option-boxShadow, 0);
   transition: border var(--global-transitionTiming-alpha), box-shadow var(--global-transitionTiming-alpha);
@@ -831,6 +868,13 @@ more padding on the right to avoid overlap
 .c-option--hidden:checked + .c-custom-option .c-custom-option__symbol {
   opacity: 1; /* Show the symbol when the invisible checkbox/radio button is checked */
   transform: scale(1);
+}
+
+@media (prefers-color-scheme: dark) {
+  .c-custom-option__fake-input {
+    background: var(--fake-input-backgroundcolor, var(--global-color-neutral-xxxx-dark));
+    border: var(--global-borderWidth) solid var(--custom-option-borderColor, var(--input-bordercolor, var(--global-color-neutral-xxxx-dark)));
+  }
 }
 
 /*
